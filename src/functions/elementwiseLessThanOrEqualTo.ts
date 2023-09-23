@@ -5,10 +5,10 @@
  * @returns {number[]} Returns false if ANY element of cost array is greater than any element of budget array
  * @example
  * // returns true
- * isCountsSatisfied([0, 1], [2, 3])
+ * elementwiseLessThanOrEqualTo([0, 1], [2, 3])
  * @example
  * // returns false
- * isCountsSatisfied([2, 1], [1, 2])
+ * elementwiseLessThanOrEqualTo([2, 1], [1, 2])
  */
 export function elementwiseLessThanOrEqualTo(cost: number[], budget: number[]): boolean {
     if (cost.length !== budget.length) {
