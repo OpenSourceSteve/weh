@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# The Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Write a function that accepts a single string as input, and that returns a list of English words that can be created using some combination of the letters in the input string.
 
-## Available Scripts
+Example input: "oogd"
+Example output: ["good", "god", "dog", "goo", "do", "go"]
 
-In the project directory, you can run:
+# My Approach
 
-### `npm start`
+There are 2 approaches you can take to solving this problem.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+One approach is to generate all possible combinations of each subset of letters provided and then check it against the provided dictionary.  For the example string 'abc', this would result in
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+a
+b
+c
+ab
+ac
+ba
+bc
+ca
+cb
+abc
+acb
+bac
+bca
+cab
+cba
 
-### `npm test`
+For an input string of length $n$, there are $2^n$ possible subsets.  And for each subset of length $m$,  there are $m!$ possible combinations of letters. So, in the worst case (assuming there are no duplicate letters in the input string), there are an exponential number of possible combinations to check. This is not a practical approach for input strings longer than just a few letters.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The second approach is to check each word in the dictionary and see if it can be composed from the letters in the input string provided.  This can be done by counting the number of occurances of each letter (a-z) in each dictionary word and comparing those letter counts to the letter counts of the input string.  If the input string has at least as many of each letter contained by the diction word, then that dictionary word can be add to the list of composable words.  This is the approach I have taken in my solution.  This approach scales with respect to the number of entries in the dictionary and length of the input string.  The function [getComposableWords](/src/functions/getComposableWords.ts) implements this approach.
